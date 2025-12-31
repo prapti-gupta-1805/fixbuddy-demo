@@ -22,42 +22,46 @@ export default function ProductList() {
         return <p>Loading products…</p>;
     }
 
-return (
-    <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-8">Smartphones</h1>
+    return (
+        <div className="max-w-6xl mx-auto p-6">
+            <h1 className="text-3xl font-bold mb-8">Smartphones</h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {products.map((p) => (
-                <Link
-                    key={p.id}
-                    to={`/products/${p.slug}`}
-                    className="group bg-white border rounded-xl p-4 hover:shadow-lg transition"
-                >
-                    <div className="h-48 flex items-center justify-center">
-                        <img
-                            src={p.image_url}
-                            alt={p.name}
-                            className="h-40 object-contain group-hover:scale-105 transition"
-                        />
-                    </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                {products.map((p) => (
+                    <Link
+                        key={p.id}
+                        to={`/products/${p.slug}`}
+                        className="group p-4 transition-colors flex flex-col"
+                    >
+                        <div className="relative w-full flex items-center justify-center overflow-hidden h-56">
+                            <img
+                                src={p.image_url}
+                                alt={p.name}
+                                className="max-h-44 object-contain group-hover:scale-105 transition-transform"
+                            />
+                        </div>
 
-                    <h3 className="mt-4 font-semibold text-lg">{p.name}</h3>
+                        <div className="mt-4 flex-1">
+                            <h3 className="font-semibold text-lg leading-tight">{p.name}</h3>
+                            {p.subtitle && <p className="text-sm text-gray-500 mt-1">{p.subtitle}</p>}
+                        </div>
 
-                    <p className="text-gray-500 line-through text-sm">
-                        ₹{Math.round(p.price * 1.1)}
-                    </p>
+                        <div className="mt-3">
+                            <p className="text-gray-500 line-through text-sm">
+                                ₹{Math.round(p.price * 1.1)}
+                            </p>
 
-                    <p className="text-xl font-bold text-black">
-                        ₹{p.price}
-                    </p>
+                            <p className="text-xl font-bold text-black">
+                                ₹{p.price}
+                            </p>
 
-                    <p className="text-sm text-green-600 mt-1">
-                        EMI starting from ₹{Math.floor(p.price / 12)}
-                    </p>
-                </Link>
-            ))}
+                            <p className="text-sm text-green-600 mt-1">
+                                EMI from ₹{Math.floor(p.price / 12)}
+                            </p>
+                        </div>
+                    </Link>
+                ))}
+            </div>
         </div>
-    </div>
-);
-
+    );
 }
